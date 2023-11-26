@@ -19,6 +19,17 @@ def show(book_id):
 
   return book
 
+@blp.delete("/books/<int:book_id>")
+def delete(book_id):
+  book = Book.query.get_or_404(book_id)
+  try:
+    db.session.delete(book)
+    db.session.commit()
+  except SQLAlchemyError:
+    abort(500, message="Um erro inesperado ocorreu")
+
+  return { "message": "Livro excluído" }, 200
+
 @blp.get("/authors/<int:author_id>/books")
 @blp.response(200, BookSchema(many=True))
 def show_authors_books(author_id):

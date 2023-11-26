@@ -18,6 +18,17 @@ def show(author_id):
   author = Author.query.get_or_404(author_id)
   return author
 
+@blp.delete("/authors/<int:author_id>")
+def delete(author_id):
+  author = Author.query.get_or_404(author_id)
+  try:
+    db.session.delete(author)
+    db.session.commit()
+  except SQLAlchemyError:
+    abort(500, message="Um erro inesperado ocorreu")
+
+  return { "message": "Autor excluído" }, 200
+
 @blp.post("/authors")
 @blp.arguments(AuthorSchema)
 @blp.response(201, AuthorSchema)
