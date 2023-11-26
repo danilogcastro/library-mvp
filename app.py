@@ -1,7 +1,11 @@
 from flask import Flask
 from flask_smorest import Api
 
+import models
+
 from db import db
+from resources.author import blp as AuthorBlueprint
+from resources.book import blp as BookBlueprint
 
 app = Flask(__name__)
 
@@ -23,3 +27,10 @@ api = Api(app)
 
 with app.app_context():
   db.create_all()
+
+@app.get("/ping")
+def ping():
+  return "pong"
+
+api.register_blueprint(AuthorBlueprint)
+api.register_blueprint(BookBlueprint)
