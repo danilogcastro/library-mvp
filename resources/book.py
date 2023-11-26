@@ -16,6 +16,7 @@ def index():
 @blp.response(200, BookWithAuthorSchema)
 def show(book_id):
   book = Book.query.get_or_404(book_id)
+
   return book
 
 @blp.get("/authors/<int:author_id>/books")
@@ -30,12 +31,15 @@ def show_authors_books(author_id):
 @blp.arguments(BookSchema)
 @blp.response(201, BookWithAuthorSchema)
 def create(path_params, book_data, author_id):
-  author_id = path_params['author_id']
-  book = Book(**book_data, author_id=author_id)
+  author = Author.query.get(author_id)
+  if not author:
+    abort(404, message="Autor não existente")
+  
+  book = Book(**book_data, author_id=author.id)
   try:
     db.session.add(book)
     db.session.commit()
   except SQLAlchemyError:
-    abort(500, "Um erro inesperado ocorreu")
+    abort(500, message="Um erro inesperado ocorreu")
   
   return book

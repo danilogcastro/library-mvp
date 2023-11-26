@@ -27,6 +27,6 @@ def create(author_data):
     db.session.add(author)
     db.session.commit()
   except SQLAlchemyError:
-    abort(500, "Um erro inesperado ocorreu")
+    abort(500, message="Um erro inesperado ocorreu")
   
   return author
