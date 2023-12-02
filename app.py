@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_smorest import Api
+from flask_cors import CORS
 
 import models
 
@@ -8,6 +9,7 @@ from resources.author import blp as AuthorBlueprint
 from resources.book import blp as BookBlueprint
 
 app = Flask(__name__)
+CORS(app)
 
 app.config["API_TITLE"] = "Library MVP API"
 app.config["API_VERSION"] = "v1"
