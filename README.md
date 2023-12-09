@@ -13,7 +13,7 @@ docker build -t library-mvp .
 Onde `library-mvp` será o nome da nossa imagem. Logo após, rodar o seguinte comando:
 
 ```bash
-docker run -d -p 3000:5000 rest-apis-flask-python
+docker run -d -p 3000:5000 library-mvp
 ```
 
 Onde a porta de número `3000` do nosso sistema será mapeada para a porta `5000` do container, que por sua vez é a porta padrão do Flask, para onde as requisições precisam ser feitas.
