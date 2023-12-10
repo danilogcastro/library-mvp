@@ -25,3 +25,9 @@ curl http://localhost:3000/ping
 ```
 
 Se o servidor responder com `pong`, quer dizer que a API está rodando corretamente.
+
+Para acessar a documentação da API, pode-se visitar o seguinte endereço:
+
+```
+http://localhost:3000/swagger-ui
+```
